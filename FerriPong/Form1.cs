@@ -14,7 +14,10 @@ namespace FerriPong
     {
         public int speed_ball = 20;  
         public int speed_top = 4;
+        public int speed_ball2 = -20;
+        public int speed_top2 = 4;
         public int point = 0;
+        
         public Form1()
         {
             InitializeComponent();
@@ -27,7 +30,7 @@ namespace FerriPong
             plain.Top = panel.Bottom - (panel.Bottom / 10);
         }
         
-
+       
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
            if (e.KeyCode == Keys.Escape) { this.Close();}        
@@ -38,7 +41,8 @@ namespace FerriPong
             plain.Left = Cursor.Position.X - (plain.Width / 2);   
             ball.Left += speed_ball;     //move the ball
             ball.Top += speed_top;
-
+            ball2.Left += speed_ball2;     //move the second ball
+            ball2.Top += speed_top2;
             if (ball.Bottom >= plain.Top && ball.Bottom <= plain.Bottom && ball.Left >= plain.Left && ball.Right <= plain.Right)    //collision
             {
                 speed_top += 2;
@@ -46,23 +50,50 @@ namespace FerriPong
                 speed_top = -speed_top;// change the direction
                 point += 1;
             }
-            if (ball.Left <= panel.Left)
+            if (ball2.Bottom >= plain.Top && ball2.Bottom <= plain.Bottom && ball2.Left >= plain.Left && ball2.Right <= plain.Right)    //collision
+            {
+                speed_top2 += 2;
+                speed_ball2 += 2;
+                speed_top2 = -speed_top2;// change the direction
+                point += 1;
+            }
+            if (ball.Left <= panel.Left )
             {
                 speed_ball = -speed_ball;
             }
-            if (ball.Right >= panel.Right)
+            if (ball2.Left <= panel.Left)
+            {
+                speed_ball2 = -speed_ball2;
+            }
+            if (ball.Right >= panel.Right  )
             {
                 speed_ball = -speed_ball;
             }
-            if (ball.Top <= panel.Top)
+            if (ball2.Right >= panel.Right)
+            {
+                speed_ball2 = -speed_ball2;
+            }
+            if (ball.Top <= panel.Top )
             {
                 speed_top = -speed_top;
             }
-            if (ball.Bottom >= panel.Bottom)
+            if (ball2.Top <= panel.Top)
             {
-                timer1.Enabled = false; 
+                speed_top2 = -speed_top2;
+            }
+            if (ball.Bottom >= panel.Bottom  )
+            {
+                timer1.Enabled = false;
+                MessageBox.Show("GAME OVER");
+            }
+            if (ball2.Bottom >= panel.Bottom)
+            {
+                timer1.Enabled = false;
+                MessageBox.Show("GAME OVER");
             }
 
         }
+
+       
     }
 }
