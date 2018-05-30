@@ -12,10 +12,10 @@ namespace FerriPong
 {
     public partial class Form1 : Form
     {
-        public int speed_ball = 20;  
-        public int speed_top = 4;
-        public int speed_ball2 = -20;
-        public int speed_top2 = 4;
+       
+        public int speed_top = 10;
+        public int scoreText = 0;
+
         public int point = 0;
         
         public Form1()
@@ -23,11 +23,14 @@ namespace FerriPong
             InitializeComponent();
 
             timer1.Enabled = true;
+            ballTimer.Enabled = true;
             Cursor.Hide();   
             this.FormBorderStyle = FormBorderStyle.None;  
             this.TopMost = true;  
             this.Bounds = Screen.PrimaryScreen.Bounds; 
             plain.Top = panel.Bottom - (panel.Bottom / 10);
+            plain2.Top = panel.Bottom - (panel.Bottom / 6);
+            plain3.Top = panel.Bottom - (panel.Bottom / 6);
         }
         
        
@@ -38,62 +41,84 @@ namespace FerriPong
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            plain.Left = Cursor.Position.X - (plain.Width / 2);   
-            ball.Left += speed_ball;     //move the ball
+            plain.Left = Cursor.Position.X - (plain.Width / 2);
+            plain2.Left = Cursor.Position.X - (plain.Width / 2);
+            plain3.Left = Cursor.Position.X + (plain.Width-77);
+           
+
+
+        }
+
+        private void panel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+        public void respawn()
+        {
+
+            Random r=new Random();
+            int y = r.Next(100,200);
+            int x = r.Next(100,1200);
+            ball.Location = new Point(x,y);
+            ballTimer.Enabled = true;
+        }
+        private void ballTimer_Tick(object sender, EventArgs e)
+        {
             ball.Top += speed_top;
-            ball2.Left += speed_ball2;     //move the second ball
-            ball2.Top += speed_top2;
+            
             if (ball.Bottom >= plain.Top && ball.Bottom <= plain.Bottom && ball.Left >= plain.Left && ball.Right <= plain.Right)    //collision
             {
+                speed_top += 1;
+                scoreText++;
+                score.Text = Convert.ToString(scoreText);
+
+                //speed_top = -speed_top;// change the direction
+                point += 1;
+                ballTimer.Enabled = false;
+                respawn();
+            }
+          /*  if (ball.Bottom >= plain2.Top && ball.Bottom <= plain2.Bottom && ball.Left >= plain2.Left && ball.Right <= plain2.Right)    //collision
+            {
                 speed_top += 2;
-                speed_ball += 2;
+
                 speed_top = -speed_top;// change the direction
                 point += 1;
             }
-            if (ball2.Bottom >= plain.Top && ball2.Bottom <= plain.Bottom && ball2.Left >= plain.Left && ball2.Right <= plain.Right)    //collision
+            if (ball.Bottom >= plain3.Top && ball.Bottom <= plain3.Bottom && ball.Left >= plain3.Left && ball.Right <= plain3.Right)    //collision
             {
-                speed_top2 += 2;
-                speed_ball2 += 2;
-                speed_top2 = -speed_top2;// change the direction
+                speed_top += 2;
+
+                speed_top = -speed_top;// change the direction
                 point += 1;
-            }
-            if (ball.Left <= panel.Left )
-            {
-                speed_ball = -speed_ball;
-            }
-            if (ball2.Left <= panel.Left)
-            {
-                speed_ball2 = -speed_ball2;
-            }
-            if (ball.Right >= panel.Right  )
-            {
-                speed_ball = -speed_ball;
-            }
-            if (ball2.Right >= panel.Right)
-            {
-                speed_ball2 = -speed_ball2;
-            }
-            if (ball.Top <= panel.Top )
+            }*/
+
+            
+            if (ball.Left <= panel.Left)
             {
                 speed_top = -speed_top;
             }
-            if (ball2.Top <= panel.Top)
+
+            if (ball.Right >= panel.Right)
             {
-                speed_top2 = -speed_top2;
+                speed_top = -speed_top;
             }
-            if (ball.Bottom >= panel.Bottom  )
+
+            if (ball.Top <= panel.Top)
             {
-                timer1.Enabled = false;
-                MessageBox.Show("GAME OVER");
+                speed_top = -speed_top;
             }
-            if (ball2.Bottom >= panel.Bottom)
+            if (ball.Bottom >= panel.Bottom)
             {
-                timer1.Enabled = false;
+                ballTimer.Enabled = false;
                 MessageBox.Show("GAME OVER");
+                respawn();
             }
 
         }
 
-       
+        private void ball_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

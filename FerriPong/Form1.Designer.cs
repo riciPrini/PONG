@@ -33,30 +33,36 @@
             this.ball = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel = new System.Windows.Forms.Panel();
-            this.ball2 = new System.Windows.Forms.PictureBox();
+            this.score = new System.Windows.Forms.Label();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.plain2 = new System.Windows.Forms.PictureBox();
+            this.plain3 = new System.Windows.Forms.PictureBox();
+            this.ballTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.plain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ball)).BeginInit();
             this.panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ball2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.plain2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.plain3)).BeginInit();
             this.SuspendLayout();
             // 
             // plain
             // 
             this.plain.BackColor = System.Drawing.Color.Black;
-            this.plain.Location = new System.Drawing.Point(157, 366);
+            this.plain.Location = new System.Drawing.Point(155, 452);
             this.plain.Name = "plain";
-            this.plain.Size = new System.Drawing.Size(168, 15);
+            this.plain.Size = new System.Drawing.Size(120, 13);
             this.plain.TabIndex = 0;
             this.plain.TabStop = false;
             // 
             // ball
             // 
-            this.ball.BackColor = System.Drawing.Color.Lime;
-            this.ball.Location = new System.Drawing.Point(133, 205);
+            this.ball.BackColor = System.Drawing.Color.Red;
+            this.ball.Location = new System.Drawing.Point(125, 192);
             this.ball.Name = "ball";
-            this.ball.Size = new System.Drawing.Size(22, 23);
+            this.ball.Size = new System.Drawing.Size(30, 33);
             this.ball.TabIndex = 1;
             this.ball.TabStop = false;
+            this.ball.Click += new System.EventHandler(this.ball_Click);
             // 
             // timer1
             // 
@@ -64,7 +70,10 @@
             // 
             // panel
             // 
-            this.panel.Controls.Add(this.ball2);
+            this.panel.Controls.Add(this.score);
+            this.panel.Controls.Add(this.flowLayoutPanel1);
+            this.panel.Controls.Add(this.plain2);
+            this.panel.Controls.Add(this.plain3);
             this.panel.Controls.Add(this.ball);
             this.panel.Controls.Add(this.plain);
             this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -72,15 +81,45 @@
             this.panel.Name = "panel";
             this.panel.Size = new System.Drawing.Size(1298, 537);
             this.panel.TabIndex = 2;
+            this.panel.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_Paint);
             // 
-            // ball2
+            // score
             // 
-            this.ball2.BackColor = System.Drawing.Color.Lime;
-            this.ball2.Location = new System.Drawing.Point(1094, 177);
-            this.ball2.Name = "ball2";
-            this.ball2.Size = new System.Drawing.Size(22, 23);
-            this.ball2.TabIndex = 2;
-            this.ball2.TabStop = false;
+            this.score.AutoSize = true;
+            this.score.Location = new System.Drawing.Point(473, 23);
+            this.score.Name = "score";
+            this.score.Size = new System.Drawing.Size(13, 13);
+            this.score.TabIndex = 6;
+            this.score.Text = "0";
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(233, 422);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(200, 100);
+            this.flowLayoutPanel1.TabIndex = 5;
+            // 
+            // plain2
+            // 
+            this.plain2.BackColor = System.Drawing.Color.Black;
+            this.plain2.Location = new System.Drawing.Point(225, 414);
+            this.plain2.Name = "plain2";
+            this.plain2.Size = new System.Drawing.Size(17, 51);
+            this.plain2.TabIndex = 4;
+            this.plain2.TabStop = false;
+            // 
+            // plain3
+            // 
+            this.plain3.BackColor = System.Drawing.Color.Black;
+            this.plain3.Location = new System.Drawing.Point(155, 414);
+            this.plain3.Name = "plain3";
+            this.plain3.Size = new System.Drawing.Size(17, 51);
+            this.plain3.TabIndex = 3;
+            this.plain3.TabStop = false;
+            // 
+            // ballTimer
+            // 
+            this.ballTimer.Tick += new System.EventHandler(this.ballTimer_Tick);
             // 
             // Form1
             // 
@@ -94,7 +133,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.plain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ball)).EndInit();
             this.panel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ball2)).EndInit();
+            this.panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.plain2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.plain3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -105,7 +146,11 @@
         private System.Windows.Forms.PictureBox ball;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Panel panel;
-        private System.Windows.Forms.PictureBox ball2;
+        private System.Windows.Forms.PictureBox plain3;
+        private System.Windows.Forms.PictureBox plain2;
+        private System.Windows.Forms.Label score;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Timer ballTimer;
     }
 }
 
