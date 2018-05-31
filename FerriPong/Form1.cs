@@ -29,8 +29,7 @@ namespace FerriPong
             this.TopMost = true;  
             this.Bounds = Screen.PrimaryScreen.Bounds; 
             plain.Top = panel.Bottom - (panel.Bottom / 10);
-            plain2.Top = panel.Bottom - (panel.Bottom / 6);
-            plain3.Top = panel.Bottom - (panel.Bottom / 6);
+            
         }
         
        
@@ -42,9 +41,7 @@ namespace FerriPong
         private void timer1_Tick(object sender, EventArgs e)
         {
             plain.Left = Cursor.Position.X - (plain.Width / 2);
-            plain2.Left = Cursor.Position.X - (plain.Width / 2);
-            plain3.Left = Cursor.Position.X + (plain.Width-77);
-           
+            
 
 
         }
@@ -76,7 +73,7 @@ namespace FerriPong
                 scoreText++;
                 score.Text = Convert.ToString(scoreText);
 
-                //speed_top = -speed_top;// change the direction
+               
                 point += 1;
                 ballTimer.Enabled = false;
                 respawn();
@@ -97,22 +94,7 @@ namespace FerriPong
                 respawnFlower();
               
             }
-            /*  if (ball.Bottom >= plain2.Top && ball.Bottom <= plain2.Bottom && ball.Left >= plain2.Left && ball.Right <= plain2.Right)    //collision
-              {
-                  speed_top += 2;
-
-                  speed_top = -speed_top;// change the direction
-                  point += 1;
-              }
-              if (ball.Bottom >= plain3.Top && ball.Bottom <= plain3.Bottom && ball.Left >= plain3.Left && ball.Right <= plain3.Right)    //collision
-              {
-                  speed_top += 2;
-
-                  speed_top = -speed_top;// change the direction
-                  point += 1;
-              }*/
-
-
+            
             if (ball.Left <= panel.Left)
             {
                 speed_top = -speed_top;
