@@ -60,12 +60,16 @@ namespace FerriPong
             int y = r.Next(100,200);
             int x = r.Next(100,1200);
             ball.Location = new Point(x,y);
+            y = r.Next(100, 200);
+            x = r.Next(100, 1200);
+            bomb.Location = new Point(x,y);
             ballTimer.Enabled = true;
         }
         private void ballTimer_Tick(object sender, EventArgs e)
         {
             ball.Top += speed_top;
-            
+            flower.Top += speed_top;
+            bomb.Top += speed_top;
             if (ball.Bottom >= plain.Top && ball.Bottom <= plain.Bottom && ball.Left >= plain.Left && ball.Right <= plain.Right)    //collision
             {
                 speed_top += 1;
@@ -77,22 +81,38 @@ namespace FerriPong
                 ballTimer.Enabled = false;
                 respawn();
             }
-          /*  if (ball.Bottom >= plain2.Top && ball.Bottom <= plain2.Bottom && ball.Left >= plain2.Left && ball.Right <= plain2.Right)    //collision
+            if (bomb.Bottom >= plain.Top && bomb.Bottom <= plain.Bottom && bomb.Left >= plain.Left && bomb.Right <= plain.Right)    //collision
             {
-                speed_top += 2;
-
-                speed_top = -speed_top;// change the direction
-                point += 1;
+                ballTimer.Enabled = false;
+                MessageBox.Show("GAME OVER");
+                respawn();
+                scoreText = 0;
+                score.Text = "0";
+                point = 0;
+                speed_top = 10;
             }
-            if (ball.Bottom >= plain3.Top && ball.Bottom <= plain3.Bottom && ball.Left >= plain3.Left && ball.Right <= plain3.Right)    //collision
+            if (flower.Bottom >= plain.Top && flower.Bottom <= plain.Bottom && flower.Left >= plain.Left && flower.Right <= plain.Right)    //collision
             {
-                speed_top += 2;
+                point -= 3;
+                respawnFlower();
+              
+            }
+            /*  if (ball.Bottom >= plain2.Top && ball.Bottom <= plain2.Bottom && ball.Left >= plain2.Left && ball.Right <= plain2.Right)    //collision
+              {
+                  speed_top += 2;
 
-                speed_top = -speed_top;// change the direction
-                point += 1;
-            }*/
+                  speed_top = -speed_top;// change the direction
+                  point += 1;
+              }
+              if (ball.Bottom >= plain3.Top && ball.Bottom <= plain3.Bottom && ball.Left >= plain3.Left && ball.Right <= plain3.Right)    //collision
+              {
+                  speed_top += 2;
 
-            
+                  speed_top = -speed_top;// change the direction
+                  point += 1;
+              }*/
+
+
             if (ball.Left <= panel.Left)
             {
                 speed_top = -speed_top;
@@ -112,10 +132,25 @@ namespace FerriPong
                 ballTimer.Enabled = false;
                 MessageBox.Show("GAME OVER");
                 respawn();
+                scoreText = 0;
+                score.Text = "0";
+               point = 0;
+           speed_top = 10;
+             }
+            if (flower.Bottom >= panel.Bottom)
+            {
+                respawnFlower();
             }
 
         }
+        public void respawnFlower() {
+            Random r = new Random();
+            int y = r.Next(100, 200);
+            int x = r.Next(100, 1200);
 
+
+            flower.Location = new Point(x,y);
+        }
         private void ball_Click(object sender, EventArgs e)
         {
 
